@@ -1,0 +1,741 @@
+@charset "UTF-8";
+/*..................................................................................*/
+/*Welcome to Ubaby style(2015,01,29)                                  				*/
+/*MAIN ID STYLES*/
+/*..................................................................................*/
+/* iti colors
+	blue 	#00B3D6
+	red  	#FF2904
+	yellow  #FFC900
+	green 	#97d72d
+*/
+textarea{overflow:auto; margin:5px;}
+button{margin:0px; padding:2px;}
+body{
+	background-image: url("images.jpg");
+	-webkit-background-size: 1599px 722px;
+	-moz-background-size: 1599px 722px;
+	-o-background-size: 1599px 722px;
+	background-size: 1599px 722px;
+	-webkit-background-repeat: repeat;
+	-moz-background-repeat: repeat;
+	-o-background-repeat: repeat;
+	background-repeat: repeat;
+	/*Size and position*/
+	position:absolute;
+	z-index:1;
+	top:0%; left:0%;
+	height:100%;width:100%;
+	/*colours and other settings*/
+	font-family:arial;
+	color:black;
+	background-color:white;
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+}
+/*..................................................................................*/
+#header{
+	/*Size and position*/
+	position:relative;
+	float:left;
+	z-index:5;
+	top:0%; left:0%;
+	height:5%; width:99%;
+	display:table;
+	padding:5px;
+	/*colours and other settings  #00B3D6*/
+	background-color:transparent;
+	/*borders*/
+	border-radius:0px 0px 10px 10px;
+	border-style:solid;
+	border-width:0px 0px 1px 1px;
+	border-color:white grey darkgrey grey;
+	box-shadow: inset -5px 0px 200px 5px black, 3px 3px 10px 0px black;
+}
+/*..................................................................................*/
+.menu{
+	/*Size and position*/
+	position:relative; z-index:6;
+	left:0%; top:0%;
+	height:auto;
+	margin:5px;
+	/*colours and other settings*/
+	background-color:transparent;
+	display:inline;
+}
+.menu:hover{z-index:10;}  /*makes menu appear above content*/
+/*..................................................................................*/
+.wideContainer{
+	/*Size and position*/
+	position:relative;
+	top:0%;
+	z-index:4; 
+	width:99%;
+	display:table;
+	/*colours and other settings*/
+	background-color:transparent;
+}
+
+.lowContainer{
+	/*Size and position*/
+	position:relative; z-index:5; 
+	float:left;
+	top:5px; bottom:0px; left:0px; right:0px;			
+	height:100px;
+	display:table;
+	width:48%;
+	margin:3px 3px 0px 3px;
+	/*colours and other settings*/
+	background-color:transparent;
+	box-shadow: inset -5px 0px 300px 50px white, 3px 3px 10px 0px black;
+}
+/*..................................................................................*/
+/*class inside content id*/
+/*..................................................................................*/
+.imageContainer{
+	/*Size and position*/
+	position:relative; z-index:5;   	
+	float:left; 
+	top:5px; bottom:0px; left:0px; right:0px;
+	display:table;	
+	height:505px;
+	width:48%;
+	max-width: 49%;
+	margin:3px;
+	/*colours and other settings*/
+	background-color:transparent;
+	margin-bottom:2px;
+	box-shadow: inset -5px 0px 300px 50px white, 3px 3px 10px 0px black;
+}
+/*..................................................................................*/
+.textContainer{
+	/*Size and position*/
+	position:relative; z-index:5; 
+	float:left;
+	top:5px; bottom:0px; left:0px; right:0px;			
+	height:505px;
+	display:table;
+	width:48%;
+	margin:3px 3px 0px 3px;
+	/*colours and other settings*/
+	background-color:transparent;
+	box-shadow: inset -5px 0px 300px 50px white, 3px 3px 10px 0px black;
+}
+/*..................................................................................*/
+img{	
+	/*Low resolution images will be displayed small, but still in proportion, so use images minimum 400px width*/
+	/*Size and position*/
+	position:absolute; z-index:5;     	/*VERTICAL centering and resizing will not work if no absolute*/
+	top:0px; bottom:0px; left:0px; right:0px;   /*auto margin need this for vertical alignment*/
+    width:auto;							/*resizes image*/					
+	max-width:99%; 						/*prevents borders to mess up positions*/
+	max-height:99%;		
+	display:block;						/*this does not allow image to be bigger than div, but does not make image change shape*/
+	/*colours and other settings*/
+	margin:auto;						/*vertical alignment*/
+	/*borders*/
+	border-radius:5px 5px 5px 5px;
+}
+/*..................................................................................*/
+.proportion{	
+	/*Acts same as image but can be used for more things like iframe or object */
+	/*Size and position*/
+	position:absolute; z-index:5;     	/*VERTICAL centring and resizing will not work if no absolute*/
+	top:0px; bottom:0px; left:0px; right:0px;   /*auto margin need this for vertical alignment*/
+    width:auto;							/*resizes image*/					
+	max-width:95%; 						/*prevents borders to mess up positions*/
+	max-height:95%;		
+	display:block;						/*this does not allow image to be bigger than div, but does not make image change shape*/
+	/*colours and other settings*/
+	margin:auto;						/*vertical alignment*/
+	/*borders*/
+	border-radius:5px 5px 5px 5px;
+}
+/*..................................................................................*/
+#footer{
+	/*Size and position*/
+	position:relative;
+	display:table;
+	float:left;
+	z-index:5;
+	top:5%; left:0%;
+	height:5%; width:99%;
+	padding:5px;
+	/*colours and other settings  #FFC900*/
+	background-color:transparent;
+	/*borders*/
+	border-radius:10px 10px 10px 10px;
+	border-style:solid;
+	border-width:0px 1px 1px 1px;
+	border-color:white grey grey lightgrey;
+	box-shadow: inset -10px 0px 100px 5px #00B3D6, 3px 3px 10px 0px black;
+}
+/*..................................................................................*/
+/*MAIN CLASS STYLES*/
+/*..................................................................................*/
+/*Shadows*/
+.sphere{
+	box-shadow: inset 0px 0px 15px 1px grey, inset -10px -10px 30px 5px black,  5px 5px 10px 0px black;
+}
+/*Thin border and shadow*/
+.border{
+	border-radius:5px 5px 5px 5px;
+	border-style:solid;
+	border-width:1px 1px 1px 1px;
+	border-color:white darkgrey darkgrey lightgrey ;
+}
+.shadow {
+	box-shadow: 3px 3px 10px 0px black;
+}
+.inset{
+	box-shadow: inset 0px 0px 0px 15px grey;
+}
+.greydient{
+	box-shadow: inset 100px 0px 100px 0px grey, inset -100px 0px 100px 0px grey;
+}
+/*bgr image repeat*/
+.bgrimg{
+	background-image: url("../../images/iti/itibgr.jpg");
+	background-size: 13px 13px;
+	background-repeat: repeat;
+}
+/*triangle button to go top*/
+.top{
+	width:0px;
+	height:0px;
+	background-color:transparent;
+	border-style:solid;
+	border-width:0px 50px 100px 50px;
+	border-color:transparent transparent #00B3D6 transparent;
+}
+/*Transparent*/
+.glassH{
+	background-color:transparent;
+	color:transparent;
+}
+/*Transparent on hover*/
+.glassH:hover{
+	background-color:white;
+	color:black;
+}
+/*Visible from transparent*/
+.glassV{
+	background-color:white;
+	color:black;
+}
+/*Visible on hover*/
+.glassV:hover{
+	background-color:transparent;
+	color:transparent;
+}
+/*Average phone width*/
+.minW{
+	min-width:480px;
+}
+.darkBgr{
+	box-shadow: inset -5px 0px 200px 5px black, 3px 3px 10px 0px black;
+}
+
+/*..................................................................................*/
+/* Text*/
+/*..................................................................................*/
+.h{
+	border-radius:5px 0px 0px 0px;
+	font-weight:bold;
+	color:#00B3D6;
+	padding:10px;
+	text-align:left;
+	text-shadow:1px 1px 1px black;
+	box-shadow: inset 2px 2px 0px 0px #B8D117;
+}
+.p1{
+	position:relative;
+	background-color:white;
+	border-radius:5px 5px 5px 5px;
+	margin:10px;
+}
+.p{
+	padding:10px;
+}
+/*..................................................................................*/
+/*Handwriting style*/
+/*..................................................................................*/
+.stext{
+	font-family:"Segoe Script", cursive, sans-serif; font-weight:bold;
+	text-align:center;
+}
+.shadext{
+	text-shadow:1px 1px 1px black, -1px -1px 2px black;
+}
+.whitext{
+	color:transparent;
+	text-shadow:-5px 0px 0px white, -6px 0px 0px black;
+}
+.inline{
+	display:inline-block;
+	margin:10px;
+}
+/*..................................................................................*/
+/*Button*/
+/*..................................................................................*/
+.but{
+	/*Size and position*/
+	cursor:pointer;
+	position:relative;
+	z-index:5;
+	height:25px;
+	min-width:30px;
+	max-width:200px;
+	/*colours and other settings*/
+	background-color:transparent;
+	color:white;
+	text-shadow:1px 1px 1px black, -1px -1px 2px black;
+	font-family:"Century Gothic", cursive, sans-serif; font-weight:bold;
+	text-align:center;
+	/*borders*/
+	margin:5px;
+	border-width:1px;
+	border-radius:3px 3px 3px 3px;
+	box-shadow: inset 0px 0px 3px 1px black, inset 0px 0px 3px 3px white, 2px 2px 3px 0px black;
+}
+.but:hover{
+	/*colours and other settings*/
+	background-color:transparent;
+	color:#FFC900;
+	text-shadow:1px 1px 1px black, -1px -1px 2px black;
+	font-family:"Century Gothic", cursive, sans-serif;
+	text-align:center;
+	/*borders*/
+	border-radius:10px 10px 10px 10px;
+	box-shadow: inset 0px 0px 5px 1px black, inset 0px 0px 8px 8px grey, 3px 3px 5px 0px black;
+}
+/*..................................................................................*/
+/*Tags*/
+/*..................................................................................*/
+p{margin:16px; padding:16px;}
+a{
+	position:relative;
+	display:block;
+	width:100%; height:100%;
+	text-decoration:none;
+}
+ul{	
+	list-style:none;
+	/*list-style-image: url("");*/
+	padding:0px 0px 0px 0px;
+	margin:0px 0px 0px 0px;
+}
+li{	
+	margin:0px 0px 0px 0px;
+}
+input{
+	margin:0px 0px 0px 0px;
+	width:100px;
+}
+/*..................................................................................*/
+/*menu styles*/
+/*..................................................................................*/
+.menu ul {
+	display:inline-block;
+	width:auto;
+	position:relative;
+	list-style:none;     	/*removes bullet point*/
+	margin:6px 0px 0px 0px;	
+}
+.menu ul li{
+	display: inline-block;
+	width:auto;
+	position:relative;
+	margin:6px 0px 0px 0px;
+}
+/*list inside hidden gets hidden*/
+.hidden{
+	display: none;
+    list-style: none;
+    position: absolute;
+	top:75%;
+	padding:0px 5px 5px 5px;
+}
+/*list inside hidden gets displayed above all else*/	
+li:hover .hidden{ 
+	z-index:6;
+	display:block;
+}
+.menu a {
+	color:white;
+	text-shadow:1px 1px 1px black, -1px -1px 2px black;
+	font-family:"Century Gothic", cursive, sans-serif; font-weight:bold; font-size:100%;
+	text-align:center;
+}
+.menu a:hover{
+	color:#FFC900;
+}
+.menu a:active{
+	color:#FF2904;
+}
+.menu .link {
+	/*Size and position*/
+	position:relative; z-index:5;
+	top:0%; left:0%;
+	height:25px; width:100%; 
+	min-width:200px;
+	max-width:300px;
+	/*colours and other settings #97d72d */
+	background-color: transparent;
+	/*borders*/
+	border-radius:10px 0px 0px 10px;
+	box-shadow: inset -3px 0px 50px 0px #00B3D6,  3px 3px 10px 0px black;
+}
+.menu .link:hover{
+	/*Size and position*/
+	position:relative; z-index:5;
+	top:0%; left:0%;
+	height:25px; width:100%; 
+	min-width:200px;
+	max-width:300px;
+	/*colours and other settings  #00B3D6*/
+	background-color:transparent;
+	/*borders*/
+	border-radius:0px 10px 10px 0px;
+	box-shadow: inset 0px 0px 50px 0px #00B3D6,  5px 5px 10px 0px black;
+}
+.menu .hidden .link{	
+	box-shadow: inset 0px 0px 50px 0px #00B3D6,  5px 5px 10px 0px black;
+}
+
+/*..................................................................................*/
+/*ANIMATION*/
+/*..................................................................................*/
+/*Rotation*/
+.rotating{
+	-webkit-animation:spin0 5s linear infinite;
+    -moz-animation:spin0 5s linear infinite;
+    animation:spin0 5s linear infinite;
+}
+	@-moz-keyframes spin0 { 100% { -moz-transform: rotate(360deg); } }
+	@-webkit-keyframes spin0 { 100% { -webkit-transform: rotate(360deg); } }
+	@keyframes spin0 { 100% { transform:rotate(360deg); } }
+/*..................................................................................*/
+.rotatingH:hover{
+	-webkit-animation:spin 5s linear infinite;
+    -moz-animation:spin 5s linear infinite;
+    animation:spin 5s linear infinite;
+}
+	@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+	@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+	@keyframes spin { 100% { transform:rotate(360deg); } }
+/*..................................................................................*/
+.rotating1{
+	-webkit-animation:spin1 2s linear infinite;
+    -moz-animation:spin1 2s linear infinite;
+    animation:spin1 2s linear infinite;
+}
+	@-moz-keyframes spin1 { 100% { -moz-transform: rotate(360deg); } }
+	@-webkit-keyframes spin1 { 100% { -webkit-transform: rotate(360deg); } }
+	@keyframes spin1 { 100% { transform:rotate(360deg); } }
+/*..................................................................................*/
+.rotating2{
+	-webkit-animation:spin2 0.5s linear infinite;
+    -moz-animation:spin2 0.5s linear infinite;
+    animation:spin2 0.5s linear infinite;
+}
+	@-moz-keyframes spin2 { 100% { -moz-transform: rotate(360deg); } }
+	@-webkit-keyframes spin2 { 100% { -webkit-transform: rotate(360deg); } }
+	@keyframes spin2 { 100% { transform:rotate(360deg); } }
+/*..................................................................................*/
+.rotating3{
+	-webkit-animation:spin3 0.25s linear infinite;
+    -moz-animation:spin3 0.25s linear infinite;
+    animation:spin3 0.25s linear infinite;
+}
+	@-moz-keyframes spin3 { 100% { -moz-transform: rotate(360deg); } }
+	@-webkit-keyframes spin3 { 100% { -webkit-transform: rotate(360deg); } }
+	@keyframes spin3 { 100% { transform:rotate(360deg); } }
+/*..................................................................................*/
+.rotating4{
+	-webkit-animation:spin4 0.03s linear infinite;
+    -moz-animation:spin4 0.03s linear infinite;
+    animation:spin4 0.03s linear infinite;
+}
+	@-moz-keyframes spin4 { 100% { -moz-transform: rotate(360deg); } }
+	@-webkit-keyframes spin4 { 100% { -webkit-transform: rotate(360deg); } }
+	@keyframes spin4 { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+/*..................................................................................*/
+/*from top to bottom like rain*/
+.topDown{
+	-webkit-animation:topDown 5s linear infinite;
+    -moz-animation:topDown 5s linear infinite;
+    animation:topDown 5s linear infinite;
+}
+	@keyframes topDown
+	{
+	0%  {top:50px;}
+	25%  {top:100px;}
+	50%  {top:200px;}
+	75%  {top:350px;}
+	100% {top:500px;}
+	}
+	@-moz-keyframes topDown
+	{
+	0%  {top:50px;}
+	25%  {top:100px;}
+	50%  {top:200px;}
+	75%  {top:350px;}
+	100% {top:500px;}
+	}
+	@-webkit-keyframes topDown
+	{
+	0%  {top:50px;}
+	25%  {top:100px;}
+	50%  {top:200px;}
+	75%  {top:350px;}
+	100% {top:500px;}
+	}
+/*..................................................................................*/
+/*text zoomin and out like game score*/
+.textUp2{
+	-webkit-animation:textUp2 1s linear 1;
+    -moz-animation:textUp2 2s linear 1;
+    animation:textUp2 1s linear 1;
+}
+	@keyframes textUp2
+	{
+	0%  {font-size:100%;}
+	25%  {font-size:300%;}
+	50%  {font-size:500%;}
+	75%  {font-size:300%;}
+	100% {font-size:100%;}
+	}
+	@-moz-keyframes textUp2
+	{
+	0%  {font-size:100%;}
+	25%  {font-size:300%;}
+	50%  {font-size:500%;}
+	75%  {font-size:300%;}
+	100% {font-size:100%;}
+	}
+	@-webkit-keyframes textUp2
+	{
+	0%  {font-size:100%;}
+	25%  {font-size:300%;}
+	50%  {font-size:500%;}
+	75%  {font-size:300%;}
+	100% {font-size:100%;}
+	}
+/*..................................................................................*/
+/*IDEA THE IMAGE LOGO*/
+/*..................................................................................*/
+/* iti colors
+	blue 	#00B3D6
+	red  	#FF2904
+	yellow  #FFC900
+	green 	#97d72d
+*/
+
+.itiSmall{
+position:absolute;z-index:8;top:-10px;float:left;width:70px; height:70px;min-width:70px; min-height:70px;
+}
+.itiBig{
+	z-index:7;
+	text-align:center;
+	background-color:transparent;
+	position:relative;
+	width:505px;
+	height:505px;
+	min-width:50px;
+	min-height:50px;
+	top:0%;
+	left:0%;
+	margin-left:auto;
+	margin-right:auto;
+}
+.itiSmall{
+	-webkit-animation:spin 5s linear infinite;
+	-moz-animation:spin 5s linear infinite;
+	animation:spin 5s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+/*..................................................................................*/
+/*..................................................................................*/
+.itiBlack{
+	position:relative;
+	background-color:#00B3D6;
+	width:19%;
+	height:19%;
+	top:20.9%;
+	left:6.8%;
+	border-radius:50%;
+}
+.itiBlueH{
+	position:absolute;
+	background-color:#00B3D6;
+	width:38%;
+	height:9.5%;
+	top:25.6%;
+	left:31.1%;
+	border-radius:5px;
+}
+.itiGreen{
+	position:absolute;
+	background-color:#97d72d;
+	width:19%;
+	height:19%;
+	top:20.9%;
+	left:74.5%;
+	border-radius:50%;
+}
+
+.itiRed{
+	position:absolute;
+	background-color:#FF2904;
+	width:38%;
+	height:9.5%;
+	top:54.9%;
+	left:14.2%;
+	border-radius:5px;
+	-ms-		transform:rotate(60deg);
+	-webkit-	transform:rotate(60deg);
+				transform:rotate(60deg);
+}
+/*
+#itiBlueV{
+	position:absolute;
+	z-index:1;
+	background-color:#00B3D6;
+	width:9.5%;
+	height:28%;
+	top:35%;
+	left:45.4%;
+	border-radius:0px 0px 5px 5px;
+}*/
+.itiWhite{
+	position:absolute;
+	background-color:#FF2904;
+	width:19%;
+	height:19%;
+	top:79.4%;
+	left:40.6%;
+	border-radius:50%;
+	/*box-shadow: inset 0px 0px 1px 1px grey, 1px 1px 2px 0px black;*/
+}
+.itiYellow{
+	position:absolute;
+	background-color:#97d72d;
+	width:38%;
+	height:9.5%;
+	top:54.9%;
+	left:47.9%;
+	border-radius:5px;
+	-ms-		transform:rotate(-60deg);
+	-webkit-	transform:rotate(-60deg);
+				transform:rotate(-60deg);
+}
+
+
+
+
+/* BOSS !!!*/
+
+
+.itiSmall2{
+position:absolute;z-index:8;top:-10px;float:left;width:70px; height:70px;min-width:70px; min-height:70px;
+}
+.itiBig2{
+	z-index:7;
+	text-align:center;
+	background-color:transparent;
+	position:relative;
+	width:505px;
+	height:505px;
+	min-width:50px;
+	min-height:50px;
+	top:0%;
+	left:0%;
+	margin-left:auto;
+	margin-right:auto;
+}
+.itiSmall2{
+	-webkit-animation:spin 3s linear infinite;
+	-moz-animation:spin 3s linear infinite;
+	animation:spin 3s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+/*..................................................................................*/
+/*..................................................................................*/
+.itiBlack2{
+	position:relative;
+	background-color:#00B3D6;
+	width:19%;
+	height:19%;
+	top:20.9%;
+	left:6.8%;
+	border-radius:50%;
+}
+.itiBlueH2{
+	position:absolute;
+	background-color:grey;
+	width:38%;
+	height:9.5%;
+	top:25.6%;
+	left:31.1%;
+	border-radius:5px;
+}
+.itiGreen2{
+	position:absolute;
+	background-color:white;
+	width:19%;
+	height:19%;
+	top:20.9%;
+	left:74.5%;
+	border-radius:50%;
+}
+
+.itiRed2{
+	position:absolute;
+	background-color:#FFC900;
+	width:38%;
+	height:9.5%;
+	top:54.9%;
+	left:14.2%;
+	border-radius:5px;
+	-ms-		transform:rotate(60deg);
+	-webkit-	transform:rotate(60deg);
+				transform:rotate(60deg);
+}
+/*
+#itiBlueV{
+	position:absolute;
+	z-index:1;
+	background-color:#00B3D6;
+	width:9.5%;
+	height:28%;
+	top:35%;
+	left:45.4%;
+	border-radius:0px 0px 5px 5px;
+}*/
+.itiWhite2{
+	position:absolute;
+	background-color:#FFC900;
+	width:19%;
+	height:19%;
+	top:79.4%;
+	left:40.6%;
+	border-radius:50%;
+	/*box-shadow: inset 0px 0px 1px 1px grey, 1px 1px 2px 0px black;*/
+}
+.itiYellow2{
+	position:absolute;
+	background-color:black;
+	width:38%;
+	height:9.5%;
+	top:54.9%;
+	left:47.9%;
+	border-radius:5px;
+	-ms-		transform:rotate(-60deg);
+	-webkit-	transform:rotate(-60deg);
+				transform:rotate(-60deg);
+}
