@@ -1,10 +1,6 @@
 //since we only need centers of elements x y will be center
-//HOW TO CREATE OBJECTS
-
-
 //var myTimer = setInterval(req, 5);
 //function req(){requestAnimationFrame(test);}
- 
 //var firstArc=function(canvas,context,x, y, size, radians1, radians2, bool){
 
 var canvas;
@@ -12,11 +8,11 @@ var context;
 var hexaMap;
 
 //not sure why these used
-	var angle=Math.random()*360;
-	var differentSpeed=angle;
-	var differentSpeed2=angle;
-	var x=0;
-	var y=0;
+var angle=Math.random()*360;
+var differentSpeed=angle;
+var differentSpeed2=angle;
+var x=0;
+var y=0;
 
 var firstArc={
 	x:0,
