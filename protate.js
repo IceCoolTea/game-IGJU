@@ -82,6 +82,7 @@ function draw(){
 	firstArc.execute(x,y,size+65,differentSpeed-0.2,differentSpeed+0.2);
 	
 	firstArc.execute(x,y,size,differentSpeed2-0.3,differentSpeed2+0.3);
+	shootLaser(angle, mouse.x,mouse.y, 10);
 	
 }
 
@@ -120,14 +121,20 @@ var source = {
 	
 
 
-function shootLaser(angle, from, length){
-	for(var i=from;i<to;i++){
-		x=Math.cos(radians)*(i+i*15)+400;
-		y=Math.sin(radians)*(i+i*15)+300;
+function shootLaser(angle, toX,toY, length){
+	var radians =0;
+	var x=0;
+	var y=0;
+	
+	for(var i=0;i<length;i++){
+		check(radians);
+		radians=angle * (Math.PI/180);
+		x=Math.cos(radians)*(i+i*15)+toX;
+		y=Math.sin(radians)*(i+i*15)+toY;
 
 		context.beginPath();
 		//getAngleForArc(radians);
-		context.arc(x, y, size, radians-0.2, radians+0.2, true);
+		context.arc(x, y, length, radians-0.2, radians+0.2, true);
 		//context.fillStyle = hexaMap2[i];
 		//context.fill();
 		context.lineWidth = 3;
