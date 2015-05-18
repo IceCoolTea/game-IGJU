@@ -11,6 +11,13 @@ var canvas;
 var context;
 var hexaMap;
 
+//not sure why these used
+	var angle=Math.random()*360;
+	var differentSpeed=angle;
+	var differentSpeed2=angle;
+	var x=0;
+	var y=0;
+
 var firstArc={
 	x:0,
 	y:0,
@@ -28,6 +35,7 @@ var firstArc={
 		context.closePath();
 	}
 };
+
 var mouse = {x: 0, y: 0};
 
 document.addEventListener('mousemove', function(e){ 
@@ -113,11 +121,7 @@ var source = {
 };
 
 
-	var angle=Math.random()*360;
-	var differentSpeed=angle;
-	var differentSpeed2=angle;
-	var x=0;
-	var y=0;
+
 	
 
 
@@ -193,8 +197,6 @@ function isColliding(sourceObject,targetObject){
 }
 
 
-
-
 function isColliding2(source,lazerAngle,arrayOfLocations){
 	//detect collision with what...
   source=source.split(",");
@@ -211,68 +213,8 @@ function isColliding2(source,lazerAngle,arrayOfLocations){
 	//}
 }
 
-function test77(){
-	var hexaMap=newHexMap(100);
-	var x=100;
-	var y=300;
-	var arr=[10,20,30,40,50,60,10,2,3,4,1,9,6,3,10,2,4,6,8,4,2,1,2,30,5,70,8,20,20,4,6,7,2,2,30,40,60,90,0,7,4];
-	var arr2=[6,8,4,2,1,2,30,5,70,8,20,20,4,70,20,30,40,50,60,10,2,3,4,1,9,6,3,10,2,4,6,7,2,2,30,40,60,90,0,7,4];
-	
-	// 500 50
-	var angle=Math.random()*360;
-	var size=25;	
-	for(var i=0;i<100;i++){
-		
-		
-		//x=Math.cos(this._angle)*b,a.body.velocity.y=Math.sin(this._angle)*b,this._angle
-		//q 3
-		//35%;
-		//90'- 1.0
-		//35'- x
-		//35/90
-		//
-		
-		//CIRCLE
-		//var angle=120;
-		//x=Math.cos(i/5)*100+300;
-		//y=Math.sin(i/5)*100+300;
-		
-		//SPIRAL STAR
-		//var angle=120;
-		//x=Math.cos(i)*i*3+300;
-		//y=Math.sin(i)*i*3+300;
-		
-		//SPIRAL
-		//var angle=120;
-		//x=Math.cos(i/5)*i+300;
-		//y=Math.sin(i/5)*i+300;
-		
-		//make bigger
-		//var angle=120;
-		//x=Math.cos(i)*i*5+300;
-		//y=Math.sin(i)*i*5+300;
-		
-		//draw line
-		var angle=180;
-		var radians = angle * (Math.PI/180);
-		x=Math.cos(radians)*(i)*10+400;
-		y=Math.sin(radians)*(i)*10*-1+400;
-		//x+=100;
-		//y+=100;
-
-		newDiv("source"+i);
-		newStyle("source"+i,"backgroundColor",hexaMap[i]);
-		newStyle("source"+i,"borderRadius","50%");
-		newStyle("source"+i,"position","absolute");
-		newStyle("source"+i,"height",size+"px");
-		newStyle("source"+i,"width",size+"px");
-		newStyle("source"+i,"left",x+"px");
-		newStyle("source"+i,"top",y+"px");
-
-	}
-}
-
-function angelConvertoor(angle){
+//this function might be helpful when deciding which quadrant what angle
+function angleConvertor(angle){
 	var incrementor={
 		x:0,
 		y:0
@@ -297,62 +239,6 @@ function angelConvertoor(angle){
 	
 	//var angel=
 	return incrementor;
-}
-
-function test6(){
-	newIdElement("");
-	setInterval(randomTest, 1000);
-	//generate color map
-	var hexaMap=newHexMap(10000);
-	
-	for(var i=0;i<10000;i++){
-		//source id creation
-		newIdElement("source"+i);
-		//newClass("source"+i,"itiSmall");
-		//document.getElementById("source"+i).innerHTML='<div class="itiBlack"></div><div class="itiBlueH"></div><div class="itiGreen"></div><div class="itiRed"></div><div class="itiBlueV"></div><div class="itiYellow"></div><div class="itiWhite"></div>';
-		newIdStyle("source"+i,"backgroundColor",hexaMap[i]);
-		newIdStyle("source"+i,"zIndex","10");
-		var size=UbabyEngine(mMap,1)+"px";
-		newIdStyle("source"+i,"height",size);
-		newIdStyle("source"+i,"width",size);
-		newIdStyle("source"+i,"borderRadius","50%");
-		newIdStyle("source"+i,"position","absolute");
-		//document.getElementById("source"+i).innerHTML='<div style="position:absolute; height:10px; width:10px; border-radius:50%; background-color="'+hexaMap[i]+';></div>';
-		randomDivLocation("source"+i);
-		
-		//lazer id creation
-		newIdElement("lazor"+i);
-		newClass("lazor"+i,"lazerStyle");
-	}
-
-}
-
-function randomTest(){
-		var hexaMap=newHexMap(100);
-		randomDivLocation("target");
-		newIdStyle("target","backgroundColor",hexaMap[0]);
-		newIdStyle("target","zIndex","10");
-		var size=UbabyEngine(mMap,1)+"px";
-		newIdStyle("target","height",size);
-		newIdStyle("target","width",size);
-		newIdStyle("target","borderRadius","50%");
-		newIdStyle("target","position","absolute");
-
-
-	var targetX=getDivCenterX("target");
-	var targetY=getDivCenterY("target");
-	
-	for(var i=0;i<100;i++){
-		
-		randomDivLocation("source"+i);
-		
-		var sourceX=getDivCenterX("source"+i);
-		var sourceY=getDivCenterY("source"+i);
-		var angle=getAngle(sourceX,sourceY,targetX,targetY);
-		positionDiv("lazor"+i,sourceX,sourceY);
-		newIdStyle("lazor"+i,"backgroundColor",hexaMap[i]);
-		rotateDiv("lazor"+i,angle);
-	}
 }
 
 function randomDivLocation(idIn){
