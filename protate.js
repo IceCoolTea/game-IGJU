@@ -28,6 +28,12 @@ var firstArc={
 		context.closePath();
 	}
 };
+var mouse = {x: 0, y: 0};
+
+document.addEventListener('mousemove', function(e){ 
+    mouse.x = e.clientX || e.pageX; 
+    mouse.y = e.clientY || e.pageY 
+}, false);
 
 
 function start(){
@@ -57,21 +63,21 @@ function draw(){
 	var r2=Math.random();
 
 	context.clearRect(0, 0, canvas.width, canvas.height);
-	x=Math.cos(radians)*50.1+300;
-	y=Math.sin(radians)*50.1+300;
+	x=Math.cos(radians)*50.1+mouse.x;
+	y=Math.sin(radians)*50.1+mouse.y;
 	
 	firstArc.execute(x,y,size,0,2*Math.PI);
 	
-	x=Math.cos(radians-Math.PI/3*2)*50.1+300;
-	y=Math.sin(radians-Math.PI/3*2)*50.1+300;
+	x=Math.cos(radians-Math.PI/3*2)*50.1+mouse.x;
+	y=Math.sin(radians-Math.PI/3*2)*50.1+mouse.y;
 	firstArc.execute(x,y,size,0,2*Math.PI);
 	
-	x=Math.cos(radians+Math.PI/3*2)*50.1+300;
-	y=Math.sin(radians+Math.PI/3*2)*50.1+300;
+	x=Math.cos(radians+Math.PI/3*2)*50.1+mouse.x;
+	y=Math.sin(radians+Math.PI/3*2)*50.1+mouse.y;
 	firstArc.execute(x,y,size,0,2*Math.PI);
 
-	x=300;
-	y=300;
+	x=mouse.x;
+	y=mouse.y;
 	firstArc.clockwise=true;
 	firstArc.execute(x,y,size+65,differentSpeed-0.2,differentSpeed+0.2);
 	
