@@ -1,49 +1,47 @@
-//since we only need centers of elements x y will be center
+//AVAILABLE FUNCTIONS
 //var myTimer = setInterval(req, 5);
-//function req(){requestAnimationFrame(test);}
-//var firstArc=function(canvas,context,x, y, size, radians1, radians2, bool){
+//start();	starts whole thing
+//animate();	animates all
+//draw();	draws once whatever is currently set up
+//shootLaser(angle,toX,toY,size,length);
+//listenMouse();
+//boxColission(source,target);
+//circleColission(source,target);
+//radianToDegree(radian);
+//getAngle(sourceX,sourceY,targetX,targetY);
+//getTargetQuadrant(x,y);
+//testCollisions();
+//setSource(x,y,size,radians,shieldSpeed,laserSpeed,colorSpeed,laserWidth,shieldWidth,shieldColor,first,second,third,clockwise); SHOULD INSTEAD ACCEPT SOURCE OBJECT WHICH HAS ALL THESE VARIABLES
 
+//VARIABLES
 var canvas;
 var context;
 var hexaMap;
-
-//not sure why these used
 var angle=Math.random()*360;
 var differentSpeed=angle;
 var differentSpeed2=angle;
-var x=0;
-var y=0;
 
-var firstArc={
-	x:0,
-	y:0,
-	size:0, 
-	rad1:0, 
-	rad2:0, 
-	clockwise:true,
-	
-	execute:function(x,y,size,rad1,rad2){
-		context.beginPath();
-		context.arc(x,y,size,rad1,rad2,this.clockwise);
-		context.lineWidth = 3;
-		context.strokeStyle = hexaMap[Math.floor(Math.random())];
-		context.stroke();
-		context.closePath();
-	}
-};
-
-var mouse = {x: 0, y: 0};
-
-document.addEventListener('mousemove', function(e){ 
-    mouse.x = e.clientX || e.pageX; 
-    mouse.y = e.clientY || e.pageY 
-}, false);
-
+//OBJECTS
+var mouse = {x:0, y:0, clicked:false};
+var source = {x:"",y:"",w:"",h:"",angle:"",shieldColor:"",first:"",second:"",third:""};//each circle color in hex
+var target = {x:"",y:"",w:"",h:"",angle:"",shieldColor:"",first:"",second:"",third:""};
+var sourceLaser = {x:"",y:"",w:"",h:"",angle:"",color:""};
+var targetLaser = {x:"",y:"",w:"",h:"",angle:"",color:""};
 
 function start(){
 	canvas=document.getElementById("igju");
 	context=canvas.getContext("2d");
 	hexaMap=newHexMap(1000);
+	listenMouse();
+	//------------------------------------------------------
+	//this is just to test collisions
+	source.w=100;
+	source.h=100;
+	
+	target.w=100;
+	target.h=100;
+	//------------------------------------------------------
+	setInterval(listenCollisions, 100);
 	animate();
 }
  
@@ -52,113 +50,106 @@ function animate(){
 	window.requestAnimationFrame(animate);
 }
 
-function draw(){	
+function draw(){
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	var radians = angle * (Math.PI/180);
 	angle+=1;
-	if(angle>=360){angle=0;}
-	if(differentSpeed>=360){differentSpeed=0;}
-	var size=15;	
-
 	differentSpeed+=0.03;
 	differentSpeed2+=0.02;
+	if(angle>=360){angle=0;}
+	if(differentSpeed>=2*Math.PI){differentSpeed=0;}	
 	
-	//alert(angle);
-	var radians = angle * (Math.PI/180);
-	var r1=Math.random();
-	var r2=Math.random();
-
-	context.clearRect(0, 0, canvas.width, canvas.height);
-	x=Math.cos(radians)*50.1+mouse.x;
-	y=Math.sin(radians)*50.1+mouse.y;
+	setSource(mouse.x,mouse.y,20,radians,differentSpeed2,differentSpeed,differentSpeed2,0.3,0.3,hexaMap[0],hexaMap[1],hexaMap[2],hexaMap[3],true);
 	
-	firstArc.execute(x,y,size,0,2*Math.PI);
-	
-	x=Math.cos(radians-Math.PI/3*2)*50.1+mouse.x;
-	y=Math.sin(radians-Math.PI/3*2)*50.1+mouse.y;
-	firstArc.execute(x,y,size,0,2*Math.PI);
-	
-	x=Math.cos(radians+Math.PI/3*2)*50.1+mouse.x;
-	y=Math.sin(radians+Math.PI/3*2)*50.1+mouse.y;
-	firstArc.execute(x,y,size,0,2*Math.PI);
-
-	x=mouse.x;
-	y=mouse.y;
-	firstArc.clockwise=true;
-	firstArc.execute(x,y,size+65,differentSpeed-0.2,differentSpeed+0.2);
-	
-	firstArc.execute(x,y,size,differentSpeed2-0.3,differentSpeed2+0.3);
-	shootLaser(angle, mouse.x,mouse.y, 10);
-	
+	//------------------------------------------------------
+	//this is just to test target colission (not with laser)
+	var tarX=Math.random()*200+100;
+	var tarY=Math.random()*200+100;
+	setSource(tarX,tarY,20,radians,differentSpeed2,differentSpeed,differentSpeed2,0.3,0.3,hexaMap[6],hexaMap[7],hexaMap[8],hexaMap[9],true);
+	source.x=mouse.x;
+	source.y=mouse.y;
+	target.x=tarX;
+	target.y=tarY;
+	//------------------------------------------------------
+	//set the source object variable, should be done everywhere instead of functions accepting so many parameters
+	source.angle=differentSpeed;
+	if(mouse.clicked){shootLaser(source.angle, mouse.x,mouse.y,10, 100);}
 }
 
-
-function draw3(){
-	//window.requestAnimationFrame(animate);
-	updateObjects();
-	drawObjects();
+function setSource(x,y,size,radians,shieldSpeed,laserSpeed,colorSpeed,laserWidth,shieldWidth,shieldColor,first,second,third,clockwise){
+	drawArc(x,y,size,shieldSpeed+shieldWidth,shieldSpeed-shieldWidth,shieldColor,clockwise);//shield
+	drawArc(x,y,size+60,laserSpeed+laserWidth,laserSpeed-laserWidth,shieldColor,clockwise);//laser
+	//first
+	drawArc(Math.cos(radians)*50.1+x,Math.sin(radians)*50.1+y,size,0,2*Math.PI,first,clockwise);
+	//second
+	drawArc(Math.cos(radians-Math.PI/3*2)*50.1+x,Math.sin(radians-Math.PI/3*2)*50.1+y,size,0,2*Math.PI,second,clockwise);
+	//third
+	drawArc(Math.cos(radians+Math.PI/3*2)*50.1+x,Math.sin(radians+Math.PI/3*2)*50.1+y,size,0,2*Math.PI,third,clockwise);
 }
 
-function updateObjects(){
-	updateCircle();
-	if(shoot()){updateLaser();}
-	updateBoss();
+function drawArc(x,y,size,rad1,rad2,color,clockwise){
+	context.beginPath();
+	context.arc(x,y,size,rad1,rad2,this.clockwise);
+	context.lineWidth = 5;//add parameter line width !!!
+	context.strokeStyle = color;
+	context.stroke();
+	context.closePath();
 }
 
-function testState(){isColliding();}
-
-//SOURCE or TARGET
-
-var source = {
-	x: "",
-	y: "",
-	w: "",
-	h: "",
-	facingAngle:"" //to determine which way is aiming
-	
-};
-
-
-
-	
-
-
-function shootLaser(angle, toX,toY, length){
+function shootLaser(angle,toX,toY,size,length){
 	var radians =0;
 	var x=0;
 	var y=0;
 	
 	for(var i=0;i<length;i++){
-		check(radians);
+		//check(radians);
 		radians=angle * (Math.PI/180);
+		radians=angle;
 		x=Math.cos(radians)*(i+i*15)+toX;
 		y=Math.sin(radians)*(i+i*15)+toY;
 
 		context.beginPath();
 		//getAngleForArc(radians);
-		context.arc(x, y, length, radians-0.2, radians+0.2, true);
-		//context.fillStyle = hexaMap2[i];
+		context.arc(x, y, size, radians-0.2, radians+0.2, true);
+		//context.fillStyle = hexaMap[i];
 		//context.fill();
-		context.lineWidth = 3;
+		context.lineWidth = 5;
 		context.strokeStyle = hexaMap[i];
 		context.stroke();		
 	}
 }
 
-function getAngleForArc(angle){
+//MOUSE LISTENERS
+function listenMouse(){
+		document.addEventListener('mousemove', function(e){ 
+		mouse.x = e.clientX || e.pageX; 
+		mouse.y = e.clientY || e.pageY 
+	}, false);
 
-	return angle;
+	document.addEventListener('mousedown', function(e){ 
+		mouse.x = e.clientX || e.pageX; 
+		mouse.y = e.clientY || e.pageY;
+		mouse.clicked=true;	
+	}, false);
+
+	document.addEventListener('mouseup', function(e){ 
+		mouse.x = e.clientX || e.pageX; 
+		mouse.y = e.clientY || e.pageY;
+		mouse.clicked=false;	
+	}, false);
 }
 
-function shoot(source,target){
-	
-}
+//COLLISION DETECTION
+function listenCollisions(){if(boxColission(source,target)){check("Source and Target Collided");} else{check("No Collision");}}
 
 function boxColission(source,target){
-	if (source.x < target.x + target.width &&
-		source.x + source.width > target.x &&
-		source.y < target.y + target.height &&
-		source.height + source.y > target.y) {
+	if (source.x < target.x + target.w &&
+		source.x + source.w > target.x &&
+		source.y < target.y + target.h &&
+		source.h + source.y > target.y) {
 		return true;
 	}
+	return false;
 }
 
 function circleColission(source,target){
@@ -168,116 +159,20 @@ function circleColission(source,target){
 	if (distance < source.radius + target.radius) {
 		return true;
 	}
+	return false;
 }
 
-
-//each time you shoot, detect collisions
-//so maybe no need for interval
-//but boss might need interval when he is shooting
-//each time boss shoots, detect collisions
-
-//function detectCollisions(){
-//	setInterval(detectCollision,33,source,lazerAngle,arrayOfLocations);
-//}
-
-//what is source is an object ?
-
-
-//NEED average minimum required to fit in to gap, because 100% aim is not possible
-function isAimingRight(x1,y1,aimAngle,x2,y2,precision){
-	
-}
-
-function isColliding(sourceObject,targetObject){
-	
-}
-
-
-function isColliding2(source,lazerAngle,arrayOfLocations){
-	//detect collision with what...
-  source=source.split(",");
-	
-	var id=arrayOfLocations[0].split(",");
-	var x=arrayOfLocations[1].split(",");
-	var y=arrayOfLocations[2].split(",");
-	//check angles of each location
-	//check if lazer angle ¬ each location angle
-	//for(var i=0;i<arrayOfLocations.length;i++){
-		//if(lazer angle ¬ calculate angle source vs array of locations){
-			//execute damagethis(current id);
-		//}
-	//}
-}
-
-//this function might be helpful when deciding which quadrant what angle
-function angleConvertor(angle){
-	var incrementor={
-		x:0,
-		y:0
-	};
-	if(angle===360){angle=0;}
-	
-	if(angle<=89 && angle >=0){
-		
-	}
-	
-	if(angle<=179 && angle >=90){
-		angle-=90;
-	}
-	
-	if(angle<=269 && angle >=180){
-		angle-=180;
-	}
-	
-	if(angle<=359 && angle >=270){
-		angle-=270;
-	}
-	
-	//var angel=
-	return incrementor;
-}
-
-function randomDivLocation(idIn){
-	positionDiv(idIn,Math.floor(Math.random()*1600),Math.floor(Math.random()*800));
-}
-
-function positionDiv(idIn,x,y){
-	document.getElementById(idIn).style.left=x+"px";
-	document.getElementById(idIn).style.top=y+"px";
-}
-
-function rotateDiv(idToRotate,angle) {
-	// transform rotate for all browsers woohoo
-	document.getElementById(idToRotate).style.WebkitTransform = "rotate("+angle+"deg)";
-	document.getElementById(idToRotate).style.msTransform = "rotate("+angle+"deg)";
-	document.getElementById(idToRotate).style.transform = "rotate("+angle+"deg)";	
-}
+//ANGLE DETECTION
+function radianToDegree(radian){var degree=radian * 180/Math.PI;return degree;}
 
 function getAngle(sourceX,sourceY,targetX,targetY){
 	var x=targetX-sourceX;
 	var y=targetY-sourceY;
 	var radians=Math.atan2(y, x);//x y to radians
-	var angle=radians * 180/Math.PI; //radians to degrees
 	return angle;
 }
 
-function getDivCenterX(idIn){
-	var element=document.getElementById(idIn);
-	var offset = element.offsetLeft;
-	var width = element.offsetWidth ;
-	var x = offset + (width / 2);
-	return x;
-}
-
-function getDivCenterY(idIn){
-	var element=document.getElementById(idIn);
-	var offset = element.offsetTop;
-	var height = element.offsetHeight ;
-	var y = offset + (height / 2);
-	return y;
-}
-
-//mite be useful later since it gives correct quadrants
+//gives quadrants
 function getTargetQuadrant(x,y){
 	if(x>0 && y>0){return 1;}//both positive
 	if(x<0 && y<0){return 3;}//both negative
@@ -289,15 +184,4 @@ function getTargetQuadrant(x,y){
 	if(x>0 && y===0){return 14;}//0% to the right
 	if(x<0 && y===0){return 23;}//180% to the left
 	if(x===0 && y===0){return 0;}//should not be allowed since it means on top of each
-}
-
-// OBJECTS LOCATION
-
-var firstArc2=function(x, y, size, radians1, radians2){
-		context.beginPath();
-		context.arc(x, y, size, radians1, radians2, true);
-		context.lineWidth = 3;
-		context.strokeStyle = "#ffffff";
-		context.stroke();
-		context.closePath();
 }
