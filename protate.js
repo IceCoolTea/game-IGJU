@@ -20,6 +20,11 @@ var hexaMap;
 var rotationSpeed=Math.random()*fullRadian;
 var slowRotation=rotationSpeed;
 var fastRotation=rotationSpeed;
+var sourceBullets=[];
+var shootingDistance=100;
+var bulletSpeed=0.1;
+
+var testIncrementor=0;
 
 function start(){
 	canvas=document.getElementById("igju");
@@ -38,35 +43,90 @@ function animate(){
 }
 
 function draw(){
-	clearCanvas();//clear each frame
-	rotationSpeed+=0.01;
-	slowRotation+=0.02;
-	fastRotation+=0.03;
-
-	if(rotationSpeed>=fullRadian){rotationSpeed=0;}
-	if(slowRotation>=fullRadian){slowRotation=0;}
-	if(fastRotation>=fullRadian){fastRotation=0;}	
 	
+	clearCanvas();//clear each frame
+
+	//reset rotation
+	if(igju.first.speed>=fullRadian){igju.first.speed=0;}
+	if(igju.second.speed>=fullRadian){igju.second.speed=0;}
+	if(igju.third.speed>=fullRadian){igju.third.speed=0;}
+	if(igju.shield.speed>=fullRadian){igju.shield.speed=0;}
+	if(igju.laser.speed>=fullRadian){igju.laser.speed=0;}	
+	igju.laser.angle=igju.laser.speed;//currently whatever the speed, that is the angle of it
+	igju.shield.angle=igju.shield.speed;
+	
+	//position igju, later for each listOfIgju item, relocate each
 	igjuLocation(igju,mouse.x,mouse.y);
 	//currentLaserColor();
 	//laserColor();
-	laserRotation(igju,fastRotation);
-	shieldRotation(igju,slowRotation);
-	colorRotation(igju,rotationSpeed);
+	
+	//draw igju, later: for each igju, draw each igju
 	drawIgju(igju);
 	
+	//mouseclick-> bullets
 	if(mouse.clicked){
-		//shootBullet();
-		shootLaser(fastRotation, mouse.x,mouse.y,10, 100);
+		//set up bullet
+		bullet.distance=shootingDistance;
+		bullet.isShot=true;
+		bullet.x=mouse.x;
+		bullet.y=mouse.y;
+		bullet.angle=igju.laser.angle;
+		bullet.color=hexaMap[Math.random()*1000];
+		//check(bullet.angle);
+		//add bullet to the list
+		sourceBullets.push(new bulletObject(bullet));
+		
+		//mouse.clicked=false;
+
 	}
+	//check(sourceBullets.length);
+	//for each bullet in list
+	for(var i=0;i<sourceBullets.length;i++){
+		check(sourceBullets[i].angle);
+		//check(sourceBullets[i].angle);
+		//draw bullet
+		//check(sourceBullets[i].x);
+		drawBullet(sourceBullets[i]);
+		
+		//substract the distance traveled so far for next draw
+		sourceBullets[i].distance=sourceBullets[i].distance-bulletSpeed;
+		//check(sourceBullets[i].distance);
+		if(sourceBullets[i].distance<=0){
+			sourceBullets.splice(i,1);
+			i--;
+		}
+		//if(testIncrementor>=shootingDistance){testIncrementor=0;sourceBullets[i].distance=0;}
+		
+		//else{testIncrementor+=0.01;sourceBullets[i].distance=sourceBullets[i].distance-bulletSpeed;}
+		
+		//sourceBullets[i].distance=testIncrementor;
+		//if(sourceBullets[i].distance<=0){sourceBullets[i].distance=-100;}
+	}
+//shootLaser(igju.laser.angle, mouse.x,mouse.y,10, 100);
+
+	
+	//rotate
+	laserRotation(igju,igju.laser.speed+0.03);
+	shieldRotation(igju,igju.shield.speed+0.01);
+	colorRotation(igju,igju.first.speed+0.02);
 }
 
-function shootBullet(x,y,i,angle){
-		x=Math.cos(shootAngle)*(i+i*15)+mouse.x;
-		y=Math.sin(shootAngle)*(i+i*15)+mouse.y;
+function drawBullet(bulletObject){
+	
+	//x,y,i,angle
+		//var x=Math.cos(bulletObject.angle)*(bulletObject.distance+bulletObject.distance*15)+bulletObject.x;
+		//var y=Math.sin(bulletObject.angle)*(bulletObject.distance+bulletObject.distance*15)+bulletObject.y;
+	
+	var x=Math.cos(bulletObject.angle)+bulletObject.x;
+	var y=Math.sin(bulletObject.angle)+bulletObject.y;
+	//var x=Math.cos(bulletObject.angle)+bulletObject.distance;
+	//var y=Math.sin(bulletObject.angle)+bulletObject.distance;
 		
-		drawArc(x,y,10,shootAngle+0.2, shootAngle-0.2,hexaMap[12], false);
-		drawArc(x,y,10+10,shootAngle+0.7, shootAngle-0.7,hexaMap[i], false);
+		drawCircle(x,y,10,bulletObject.angle+0.2, bulletObject.angle-0.2,hexaMap[12], false,false);
+		drawCircle(x,y,10+10,bulletObject.angle+0.7, bulletObject.angle-0.7,hexaMap[11], false,false);
+		
+		bulletObject.x=x;
+		bulletObject.y=y;
 }
 
 function clearCanvas(){
@@ -81,11 +141,11 @@ function igjuLocation(igju,x,y){
 }
 
 function shieldRotation(igju,speed){
-	igju.shield.angle=speed;
+	igju.shield.speed=speed;
 }
 
 function laserRotation(igju,speed){
-	igju.laser.angle=speed;
+	igju.laser.speed=speed;
 }
 
 function colorRotation(igju,speed){
@@ -99,6 +159,7 @@ function initSource(){
 	igju.laser.x=200;
 	igju.laser.y=200;
 	igju.laser.angle=angle;
+	igju.laser.speed=0;
 	igju.laser.color="#5574B9";
 	igju.laser.w=0.4;
 	igju.laser.r=80;
@@ -106,6 +167,7 @@ function initSource(){
 	igju.shield.x=200;
 	igju.shield.y=200;
 	igju.shield.angle=angle;
+	igju.shield.speed=0;
 	igju.shield.color="#FFF467";
 	igju.shield.w=0.4;
 	igju.shield.r=10;
@@ -253,7 +315,8 @@ var sourceLaser = {x:"",y:"",w:"",h:"",angle:"",color:""};
 var targetLaser = {x:"",y:"",w:"",h:"",angle:"",color:""};
 
 var laser = {x:"",y:"",w:"",h:"",angle:"",color:""};//to have wider set up for laser type and bullet type
-var bullet = {x:"",y:"",w:"",h:"",angle:"",color:""};
+
+var bullet = {x:"",y:"",w:"",h:"",angle:"",color:"",distance:"",strength:"",isShot:false};
 
 var igju={
 	shield:{x:"",y:"",w:"",h:"",r:"",angle:"",speed:"",color:"",opening:"",thickness:"",clockwise:false,fill:false},
@@ -262,3 +325,25 @@ var igju={
 	second:{x:"",y:"",w:"",h:"",r:"",speed:"",color:"",opening:"",thickness:"",clockwise:false,fill:false},
 	third:{x:"",y:"",w:"",h:"",r:"",speed:"",color:"",opening:"",thickness:"",clockwise:false,fill:false}
 };
+
+function bulletObject(bulletIn){
+	this.x=bulletIn.x;
+	this.y=bulletIn.y;
+	this.w=bulletIn.w;
+	this.h=bulletIn.h;
+	this.angle=bulletIn.angle;
+	this.color=bulletIn.color;
+	this.distance=bulletIn.distance;
+	this.strength=bulletIn.strength;
+	this.isShot=bulletIn.isShot;
+	
+	//this.x=function(){return this.x1;};
+	//this.y=function(){return this.y1;};
+	//this.w=function(){return this.w1;};
+	//this.h=function(){return this.h1;};
+	//this.angle=function(){return this.angle1;};
+	//this.color=function(){return this.color1;};
+	//this.distance=function(){return this.distance1;};
+	//this.strength=function(){return this.strength1;};
+	//this.isShot=function(){return this.isShot1;};
+}
